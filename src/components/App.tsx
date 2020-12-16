@@ -6,6 +6,7 @@ import { ThemeProvider, useMediaQuery } from '@material-ui/core';
 import { LOCALES } from "utils/language";
 import { LIGHT_THEME, DARK_THEME } from "utils/theme";
 import Routes from "./Routes";
+import Navbar from './Navbar';
 
 function App() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -20,6 +21,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <LitteraProvider initialLocale="pl_PL" locales={LOCALES}>
         <Router>
+          <Navbar />
           <Routes />
         </Router>
       </LitteraProvider>

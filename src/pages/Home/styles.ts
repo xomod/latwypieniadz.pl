@@ -8,5 +8,8 @@ export default ((theme: any) => ({
     h4: {
         // Head text styles...
         color: theme.palette.primary
+    },
+    container: {
+        margin: "0 10%",
     }
 }));
