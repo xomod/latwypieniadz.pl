@@ -21,10 +21,9 @@ const Home = (props: ComponentProps) => {
     const classes = useStyles();
     const [posts, refetch, next, prev] = usePosts();
 
-    console.log("Posts", posts);
-
     return <div className={cx(classes.root, props.className)} style={props.style}>
         <h4 className={classes.h4}>{translated.title}</h4>
+
     <div className={classes.container}>
         {posts === null ? <h4>Loading</h4> : posts.map(post => <Card key={post?.id} date={post?.date ?? "Invalid date"} title={post?.title?.rendered ?? "Invalid title"} thumbnailUrl={"https://media.giphy.com/media/SggILpMXO7Xt6/giphy.gif"} />)}
     </div>
