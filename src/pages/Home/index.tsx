@@ -7,8 +7,7 @@ import cx from "classnames";
 // Project scoped imports.
 import styles from "./styles";
 import translations from "./trans";
-import Card from "components/PostCard";
-import { usePosts } from "api/hooks";
+import PostList from "components/PostList";
 
 /**
  * Home component 
@@ -19,17 +18,12 @@ import { usePosts } from "api/hooks";
 const Home = (props: ComponentProps) => {
     const translated = useLittera(translations);
     const classes = useStyles();
-    const [posts, refetch, next, prev] = usePosts();
-
-    console.log("Posts", posts);
 
     return <div className={cx(classes.root, props.className)} style={props.style}>
         <h4 className={classes.h4}>{translated.title}</h4>
     <div className={classes.container}>
-        {posts === null ? <h4>Loading</h4> : posts.map(post => <Card key={post?.id} date={post?.date ?? "Invalid date"} title={post?.title?.rendered ?? "Invalid title"} thumbnailUrl={"https://media.giphy.com/media/SggILpMXO7Xt6/giphy.gif"} />)}
-    </div>
-    <Button onClick={prev}>Prev</Button>
-    <Button onClick={next}>Next</Button>
+            <PostList />
+        </div>
     </div>
 }
 

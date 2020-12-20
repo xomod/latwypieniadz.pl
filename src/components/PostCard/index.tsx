@@ -20,15 +20,15 @@ const PostCard = (props: PostCardProps) => {
     const classes = useStyles();
 
     return <Card variant="outlined" className={cx(classes.root, props.className)} style={props.style}>     
-    <CardContent className={classes.container}>
-        <div style={{display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
-<Typography style={{fontWeight: "bold"}} variant="h5">{props.title}</Typography>
-<Typography style={{opacity: .6}}>{props.date}</Typography>
-        </div>
-        <div style={{position: "relative"}} className={classes.thumbnailContainer}>
-            <img style={{position: "absolute"}} className={classes.thumbnail} src={props.thumbnailUrl} />
-        </div>
-    </CardContent>
+        <CardContent className={classes.container}>
+            <div style={{display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+                <Typography style={{ fontWeight: "bold", marginTop: 10 }} variant="h4">{props.title}</Typography>
+                <Typography style={{opacity: .6}}>{props.date}</Typography>
+            </div>
+            <div style={{position: "relative"}} className={classes.thumbnailContainer}>
+                <img style={{position: "absolute"}} className={classes.thumbnail} src={props.thumbnailUrl} />
+            </div>
+        </CardContent>
     </Card>
 }
 

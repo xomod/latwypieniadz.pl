@@ -19,9 +19,9 @@ const Navbar = (props: NavbarProps) => {
     const classes = useStyles();
 
     return <div className={cx(classes.root, props.className)} style={props.style}>     
-    <div className={classes.container}>  
-        <img className={classes.logo} src="https://latwypieniadz.pl/wp-content/uploads/2020/12/favicon_2.png" />
-    </div>
+        <div className={classes.container}>  
+            <img className={classes.logo} alt="logo" src="https://latwypieniadz.pl/wp-content/uploads/2020/12/favicon_2.png" onClick={props.onMenuOpen} />
+        </div>
     </div>
 }
 
@@ -31,7 +31,8 @@ const useStyles = makeStyles(styles);
 // Props the component accepts.
 type NavbarProps = {
     className?: string;
-    style?: React.CSSProperties
+    style?: React.CSSProperties;
+    onMenuOpen?: () => void;
 }
 
 // Time to export! 🚚

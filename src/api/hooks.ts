@@ -1,35 +1,29 @@
-import { useCallback, useRef, useState } from "react";
-import WPClient from "./methods";
+  
+import { useRef } from 'react';
+import { Client } from './client';
+import { useSignal } from 'utils/hooks';
+import config from 'config';
+import useDeepCompareEffect from 'use-deep-compare-effect'
 
-const wpClient = new WPClient();
+const HOST_URL = config.host_url;
+const cli = new Client(HOST_URL);
 
-export const usePosts = (include?: number[]) => {
-    const [page, setPage] = useState<number>(1);
-    const [posts, setPosts] = useState(null as unknown as any[]);
-    const ref = useRef(null as unknown as RefApi);
+export const useCommand = (command: any, ...args: any[]) => {
+    const ref = useRef(null as unknown as { status: number, data?: any, message?: string, headers?: Headers, _refetch: () => Promise<void> });
+    const signal = useSignal();
 
+    useDeepCompareEffect(() => {
+        const fn = async () => {
+            const _args = args || [];
+            
+            const rq = await cli.execute(new command(..._args))
+            ref.current = { ...rq, _refetch: fn };
+            signal();
+        }
+        ref.current = { status: 102, _refetch: fn };
+        fn();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [args]);
     
-
-    if(ref.current === null) {
-        const fetchData = 
-            async (pge: number = 1) => {
-                const pg = ["page", pge];
-                const maxPg = ["per_page", 2];
-                const inc = include ? ["include", include.join(",")] : undefined;
-                const args = [inc, pg, maxPg].filter(arg => arg !== undefined)  as [string, string][];
-    
-                setPosts(await wpClient.getData("posts", args))
-            }
-
-        const nextPage = () => {setPage(p => { fetchData(p + 1); return p + 1})}
-        const prevPage = () => {setPage(p => { fetchData(p - 1); return p - 1})}
-
-        ref.current = [posts, fetchData, nextPage, prevPage];
-        fetchData();
-    }
-    ref.current[0] = posts;
-
-    return ref.current;
+    return ref.current as { status: number, data?: any, message?: string, headers?: Headers, _refetch: () => Promise<void> };
 }
-
-type RefApi = [any[], (page?: number) => void, () => void, () => void];

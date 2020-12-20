@@ -5,10 +5,15 @@ export default ({
     root: {
         minWidth: 275,
         borderRadius: "8px",
+        margin: "10px 0"
     },
     container: {
         display: "flex",
         justifyContent: "space-between",
+        "&:last-child": {
+            paddingLeft: "26px",
+            padding: "10px"
+        }
     },
     thumbnailContainer: {
         // position: "relative",

@@ -6,6 +6,7 @@ export default ((theme: any) => ({
         minHeight: "64px",
         width: "100vw",
         maxWidth: "100%",
+        zIndex: theme.zIndex.drawer + 1,
     },
     container: {
         padding: "10px 30px",
