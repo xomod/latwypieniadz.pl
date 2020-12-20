@@ -2,6 +2,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
 import { useLittera } from "react-littera";
+import { useHistory } from "react-router-dom";
 import cx from "classnames";
 
 // Project scoped imports.
@@ -15,8 +16,11 @@ import translations from "./trans";
  * @author Mike Eling <mike.eling97@gmail.com>
  */
 const Navbar = (props: NavbarProps) => {
+    const history = useHistory();
     const translated = useLittera(translations);
     const classes = useStyles();
+
+    if(history.location.pathname === "/") return null;
 
     return <div className={cx(classes.root, props.className)} style={props.style}>     
         <div className={classes.container}>  

@@ -21,6 +21,7 @@ const Home = (props: ComponentProps) => {
 
     return <div className={cx(classes.root, props.className)} style={props.style}>
         <h4 className={classes.h4}>{translated.title}</h4>
+
     <div className={classes.container}>
             <PostList />
         </div>

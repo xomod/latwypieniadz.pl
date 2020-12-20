@@ -11,5 +11,6 @@ export default ((theme: any) => ({
     },
     container: {
         margin: "0 10%",
-    }
+    },
+
 }));
