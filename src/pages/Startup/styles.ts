@@ -15,20 +15,24 @@ export default ((theme: any) => ({
 
         display: "flex",
         alignItems: "center",
-        flexDirection: "row",
-        flexWrap: "wrap"
-        
+        justifyContent: "space-between",
+        flexDirection: "row"
+
     },
     container: {
-        display: "flex", 
+        display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        
+
         position: "relative",
         height: "100%"
     },
-    containerLeft: { width: "59%"  },
-    containerRight: { width: "39%", padding: "0 15px", },
-    image: { width: "900px", height: "auto", position: "absolute", right: 0, bottom: 0 }
+    containerLeft: { width: "59vw", [theme.breakpoints.down('md')]: {
+        display: "none"
+    } },
+    containerRight: { width: "39vw", padding: "0 15px", [theme.breakpoints.down('md')]: {
+        width: "100%"
+    } },
+    image: { maxWidth: "100%", maxHeight: "100vh", height: "auto", position: "absolute", right: 0, bottom: 0 },
 
 }));

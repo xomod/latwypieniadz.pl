@@ -2,12 +2,15 @@
 import React, { useState } from "react";
 import { Button, Drawer, makeStyles } from "@material-ui/core";
 import { useLittera } from "react-littera";
+import { useLocation } from "react-router-dom";
 import cx from "classnames";
 
 // Project scoped imports.
+import Navbar from "components/Navbar";
+
+// Component scoped imports.
 import styles from "./styles";
 import translations from "./trans";
-import Navbar from "components/Navbar";
 
 /**
  * Example component
@@ -16,17 +19,21 @@ import Navbar from "components/Navbar";
  * @author Mike Eling <mike.eling97@gmail.com>
  */
 const Sidebar = (props: SidebarProps) => {
+    const location = useLocation();
     const translated = useLittera(translations);
     const classes = useStyles();
 
     const [shown, setShown] = useState(true);
+
+    // Zmienić tu jeśli drawer ma się wyświetlać na innych stronach poza home.
+    const disabled = location.pathname !== "/home";
 
     return <>
         <Drawer
             className={classes.drawer}
             variant="persistent"
             anchor="left"
-            open={shown}
+            open={shown && !disabled}
             classes={{
                 paper: classes.drawerPaper,
             }}
@@ -37,6 +44,7 @@ const Sidebar = (props: SidebarProps) => {
 
         <div className={cx(classes.content, {
             [classes.contentShift]: !shown,
+            [classes.contentHidden]: disabled
         })}>
             <Navbar onMenuOpen={() => setShown(true)} />
             {props.children}

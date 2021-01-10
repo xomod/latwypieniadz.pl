@@ -11,11 +11,11 @@ import { useCommand } from "api/hooks";
 import { Posts } from "api/commands";
 import { isLoaded } from "api/utils";
 import PostCard from "../PostCard/";
+import { Post } from "api/types";
 
 // Component scoped imports.
 import styles from "./styles";
 import translations from "./trans";
-import { Post } from "api/types";
 
 /**
  * Lista wszystkich postów z paginacją.
@@ -24,7 +24,7 @@ import { Post } from "api/types";
  */
 const PostList = (props: ComponentProps) => {
     const [page, setPage] = useState(1);
-    const [perPage, setPerPage] = useState(2);
+    const [perPage, setPerPage] = useState(10);
     const postsRq = useCommand(Posts, { page, per_page: perPage });
     const [posts] = useForkedState<any, Post[]>(rq => isLoaded(rq) ? rq.data : null, postsRq);
 
@@ -76,7 +76,7 @@ const PostItem = (post: Post) => {
             .then(data => setThumbnailUrl(data?.[0]?.source_url ?? "https://media.giphy.com/media/SggILpMXO7Xt6/giphy.gif"));
     }, [post, post?.id])
 
-    return <PostCard key={post?.id} date={post?.date ?? "Invalid date"} title={post?.title?.rendered ?? "Invalid title"} thumbnailUrl={thumbnailUrl} />;
+    return <PostCard key={post?.id} date={post?.date ?? "Invalid date"} uid={post?.id ?? -1} title={post?.title?.rendered ?? "Invalid title"} thumbnailUrl={thumbnailUrl} />;
 }
 
 // Time to export! 🚚

@@ -1,9 +1,9 @@
 // Deps scoped imports.
 import React from "react";
-import { CardContent, makeStyles, Typography } from "@material-ui/core";
+import { CardContent, makeStyles, Typography, Card } from "@material-ui/core";
 import { useLittera } from "react-littera";
 import cx from "classnames";
-import Card from '@material-ui/core/Card';
+import { useHistory } from "react-router-dom";
 
 // Project scoped imports.
 import styles from "./styles";
@@ -16,10 +16,15 @@ import translations from "./trans";
  * @author Damian Błochowiak
  */
 const PostCard = (props: PostCardProps) => {
+    const history = useHistory();
     const translated = useLittera(translations);
     const classes = useStyles();
 
-    return <Card variant="outlined" className={cx(classes.root, props.className)} style={props.style}>     
+    const navigate = (path: string) => () => {
+        history.push(path);
+    }
+
+    return <Card variant="outlined" className={cx(classes.root, props.className)} style={props.style} onClick={navigate(`/p/${props.uid}`)}>     
         <CardContent className={classes.container}>
             <div style={{display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
                 <Typography style={{ fontWeight: "bold", marginTop: 10 }} variant="h4">{props.title}</Typography>
@@ -42,6 +47,7 @@ type PostCardProps = {
     title: string;
     date: string;
     thumbnailUrl: string;
+    uid: number;
 }
 
 // Time to export! 🚚

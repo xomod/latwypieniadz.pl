@@ -5,7 +5,8 @@ export default ({
     root: {
         minWidth: 275,
         borderRadius: "8px",
-        margin: "10px 0"
+        margin: "10px 0",
+        cursor: "pointer"
     },
     container: {
         display: "flex",

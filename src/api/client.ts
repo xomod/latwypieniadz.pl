@@ -11,8 +11,9 @@ export class Client implements IClient {
         this.url = url;
     }
 
-    makeArguments(args: { [key: string]: string }) {
-        return Object.entries(args).map((e => `${e[0]}=${typeof e[1] === "object" ? JSON.stringify(e[1]) : e[1]}`)).join("&");
+    makeArguments(args?: { [key: string]: string }) {
+        if(!args) return "";
+        return "?" + Object.entries(args).map((e => `${e[0]}=${typeof e[1] === "object" ? JSON.stringify(e[1]) : e[1]}`)).join("&");
     }
 
     execute(command: ICommand) {
@@ -21,7 +22,7 @@ export class Client implements IClient {
             const cmd = command.exec[0];
             const args = this.makeArguments(command.exec[1]);
 
-            const reqUrl = `${this.url}${cmd}?${args}`;
+            const reqUrl = `${this.url}${cmd}${args}`;
 
             const handleResolve = async (response: Response) => {
                 if (!once) {
@@ -55,17 +56,17 @@ export class Client implements IClient {
 
 
 export interface ICommand {
-    exec: [string, { [key: string]: any }];
+    exec: [string, { [key: string]: any }] | [string];
     status: number;
 
     parse(status: number, data: any): any
 }
 
 export class Command implements ICommand {
-    exec: [string, { [key: string]: any }];
+    exec: [string, { [key: string]: any }] | [string];
     status: number;
 
-    constructor(exec: [string, { [key: string]: any }]) {
+    constructor(exec: [string, { [key: string]: any }] | [string]) {
         this.exec = exec;
         this.status = 0;
     }

@@ -18,7 +18,7 @@ export default ((theme: any) => ({
     },
     content: {
         position: "relative",
-        width: `calc(100vw - ${drawerWidth}px)`,
+        width: `calc(100% - ${drawerWidth}px)`,
         flexGrow: 1,
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
@@ -34,4 +34,8 @@ export default ((theme: any) => ({
         }),
         marginLeft: 0,
     },
+    contentHidden: {
+        marginLeft: 0,
+        width: "100%",
+    }
 }));
